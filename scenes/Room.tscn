@@ -1,0 +1,114 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://scripts/Room.gd" type="Script" id=1]
+[ext_resource path="res://assets/3dmodels/room.glb" type="PackedScene" id=2]
+[ext_resource path="res://assets/3dmodels/chair.glb" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Furniture.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/3dmodels/bed.glb" type="PackedScene" id=5]
+[ext_resource path="res://assets/3dmodels/lamp_bed.glb" type="PackedScene" id=6]
+[ext_resource path="res://assets/3dmodels/drawers.glb" type="PackedScene" id=7]
+[ext_resource path="res://assets/3dmodels/basket.glb" type="PackedScene" id=8]
+[ext_resource path="res://assets/3dmodels/desk.glb" type="PackedScene" id=9]
+
+[sub_resource type="BoxShape3D" id=3]
+extents = Vector3( 5, 0.5, 4.82204 )
+
+[sub_resource type="BoxShape3D" id=1]
+extents = Vector3( 5, 0.5, 10 )
+
+[sub_resource type="BoxShape3D" id=5]
+extents = Vector3( 5.03765, 4.42067, 0.109381 )
+
+[node name="Room" type="Node"]
+script = ExtResource( 1 )
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0 )
+collision_layer = 4
+collision_mask = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource( 3 )
+
+[node name="Walls" type="StaticBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -0.5, 0, 1, -2.18557e-08, 0, 0, 0 )
+collision_layer = 4
+collision_mask = 0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.5, -4 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape3D" parent="Walls"]
+transform = Transform3D( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -5.5, 0, -4 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape3" type="CollisionShape3D" parent="Walls"]
+transform = Transform3D( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 5.5, 0, -4 )
+shape = SubResource( 1 )
+
+[node name="4thWall" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="4thWall"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.61928, 5 )
+shape = SubResource( 5 )
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D( -0.610159, 0.792278, -0.0016116, -0.703114, -0.540552, 0.461989, 0.365153, 0.28302, 0.886884, 0.369095, 10.8357, 3.95049 )
+light_color = Color( 0.933333, 0.92549, 0.878431, 1 )
+light_energy = 0.5
+shadow_enabled = true
+
+[node name="CameraPivot" type="Marker3D" parent="."]
+transform = Transform3D( 0.999974, -0.00233445, 0.00678709, -0.00198553, 0.818748, 0.574149, -0.00689724, -0.574148, 0.818723, -0.606295, 5.05979, -1.59202 )
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D( 0.999989, 0.00263053, -0.00386763, -0.00263053, 0.999997, 5.16722e-06, 0.00386763, 5.00676e-06, 0.999993, 0.515662, -3.03525, 19.6277 )
+fov = 24.5
+
+[node name="Bed" parent="." instance=ExtResource( 4 )]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.21144, 0, 2.26598 )
+
+[node name="bed_model" parent="Bed" instance=ExtResource( 5 )]
+transform = Transform3D( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )
+
+[node name="Desk" parent="." instance=ExtResource( 4 )]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.59788, 0, 1.30167 )
+
+[node name="desk_model" parent="Desk" instance=ExtResource( 9 )]
+transform = Transform3D( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )
+
+[node name="ChestOfDrawers" parent="." instance=ExtResource( 4 )]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.21771, 0, -4.37631 )
+
+[node name="drawers_model" parent="ChestOfDrawers" instance=ExtResource( 7 )]
+transform = Transform3D( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )
+
+[node name="LampBed" parent="." instance=ExtResource( 4 )]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.99354, 0, -0.0483148 )
+
+[node name="lamp_bed" parent="LampBed" instance=ExtResource( 6 )]
+transform = Transform3D( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )
+
+[node name="Basket" parent="." instance=ExtResource( 4 )]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6235, 0.0640585, 3.46256 )
+
+[node name="basket_model" parent="Basket" instance=ExtResource( 8 )]
+transform = Transform3D( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )
+
+[node name="room_3d" parent="." instance=ExtResource( 2 )]
+transform = Transform3D( 0.9, 0, 0, 0, 0.81, 0, 0, 0, 0.8, 0, 0, 0 )
+
+[node name="Chair" parent="." instance=ExtResource( 4 )]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.56484, 0, 1.46942 )
+
+[node name="chair" parent="Chair" instance=ExtResource( 3 )]
+transform = Transform3D( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )
